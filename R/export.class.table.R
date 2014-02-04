@@ -38,8 +38,8 @@ export.class.table <- function(gibbsL=NULL, reactionM, molIon=NULL, probM=NULL, 
 		gt<-groups(xcmsObject)
 		gt <- gt[figidx,]
 		rgt <- gt[,c("rtmin","rtmax")] 
-			rgt[,1] <- rgt[,1]-10 
-			rgt[,2] <- rgt[,2]+10 
+			rgt[,1] <- rgt[,1]-100 
+			rgt[,2] <- rgt[,2]+100 
 			eics <- getEIC(xcmsObject, mzrange=gt, rtrange =rgt, groupidx = 1:nrow(gt)) 
 			png(file.path(paste(filename, "_fig/%003d.png", sep="")), height=768, width=1024) 
 			#png(file.path(paste(filename, "_fig/", pngidx, sep="")), h=768, w=1024) 

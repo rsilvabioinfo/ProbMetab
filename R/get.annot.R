@@ -94,6 +94,7 @@ function(xsAnnotate, polarity="positive",allowMiss=FALSE, xset=NULL, toexclude=N
 	}
 	cidx <-sub("(^\\d)","X\\1",phenon)
 	cidx <- gsub("-", ".", cidx) 
+	cidx <- gsub("~", ".", cidx) 
 	# experimental
 	cidx <- gsub("\\s+", ".", cidx) 
 	intmean <- apply(peaklist[-as.numeric(anidx),cidx], 1, function(x) mean(as.matrix(x)))

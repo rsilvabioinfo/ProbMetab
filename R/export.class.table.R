@@ -253,7 +253,10 @@ export.class.table <- function(gibbsL=NULL, reactionM, molIon=NULL, probM=NULL, 
 		else { if ( i >= 10 ) { ans1[j,6]=paste(0,i, sep="") } else { ans1[j,6]=paste("00",i, sep="") }  } 
 	}
 	# this step try to recover ids of ion annotation for masses without database annotation
-	idx2 <- c(); for(m in 1:nrow(allion))  if(sum(allion[m,2]==reactionM[reactionM[,5]=="unknown",2]) & sum(allion[m,1]==reactionM[reactionM[,5]=="unknown",3])) idx2 <- append(idx2, m)
+	idx2 <- c(); #for(m in 1:nrow(allion))  if(sum(allion[m,2]==as.numeric(unk[,2])) & sum(allion[m,1]==as.numeric(unk[,3]))) idx2 <- append(idx2, m)
+	# temp changes made 03/03/2014 have to check carefuly
+	lidx <- lapply(1:nrow(allion), function(m) which(allion[m,2]==unk[,2] & allion[m,1]==unk[,3])) 
+	idx2 <- which(lapply(lidx, length)>0) 
 
 	if(!is.null(molIon$cameraobj)) {
 	idx <- as.vector(unlist(sapply(allion[idx2,"trace"], 

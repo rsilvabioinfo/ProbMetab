@@ -14,6 +14,6 @@
 #'
 #' @export 
 
- gibbs.samp <- function (x, y, N, w, p) 
-.Call("file193b1b67af14", x, y, N, w, p, PACKAGE = "ProbMetab")
+ gibbs.samp <- function (x, y, N, w, p, b) 
+.Call("file193b1b67af14", x, y, N, w, p, b, PACKAGE = "ProbMetab")
 

@@ -2,7 +2,7 @@
 // includes from the plugin
 #include <RcppArmadillo.h>
 #include <Rcpp.h>
-
+using namespace Rcpp;
 
 #ifndef BEGIN_RCPP
 #define BEGIN_RCPP
@@ -21,6 +21,8 @@
 #include <vector>
 
 // declarations
+
+// [[Rcpp::export]] 
 extern "C" {
   SEXP file193b1b67af14( SEXP x, SEXP y, SEXP N, SEXP w, SEXP p) ;
 }
@@ -30,7 +32,7 @@ extern "C" {
 SEXP file193b1b67af14( SEXP x, SEXP y, SEXP N, SEXP w, SEXP p){
   BEGIN_RCPP
   
-  using namespace Rcpp;
+// using namespace Rcpp;
   RNGScope scope;
   
   NumericVector xa(x);

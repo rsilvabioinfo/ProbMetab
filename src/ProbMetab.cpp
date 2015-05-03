@@ -2,7 +2,6 @@
 // includes from the plugin
 #include <RcppArmadillo.h>
 #include <Rcpp.h>
-using namespace Rcpp;
 
 #ifndef BEGIN_RCPP
 #define BEGIN_RCPP
@@ -12,6 +11,7 @@ using namespace Rcpp;
 #define END_RCPP
 #endif
 
+//using namespace Rcpp;
 
 // user includes
 #include <stdlib.h>
@@ -21,9 +21,7 @@ using namespace Rcpp;
 #include <vector>
 
 // declarations
-
-// [[Rcpp::export]] 
-extern "C" {
+extern "C"{
   SEXP file193b1b67af14( SEXP x, SEXP y, SEXP N, SEXP w, SEXP p) ;
 }
 
@@ -32,7 +30,7 @@ extern "C" {
 SEXP file193b1b67af14( SEXP x, SEXP y, SEXP N, SEXP w, SEXP p){
   BEGIN_RCPP
   
-// using namespace Rcpp;
+ using namespace Rcpp;
   RNGScope scope;
   
   NumericVector xa(x);
@@ -54,9 +52,12 @@ SEXP file193b1b67af14( SEXP x, SEXP y, SEXP N, SEXP w, SEXP p){
   arma::colvec betaC(ya.begin(), ya.size());
   z.col(0) = arma::zeros<arma::mat>(n_ya, 1);
   NumericVector nT(n_ya);
-  //  NumericVector nV(n_ya);
+
+// once - Normalizazion only once as Likelihood does not change
+//  NumericVector nV(n_ya);
   Rcpp::NumericMatrix nV(n_ya, n_xa);
-  
+// once
+
   NumericVector init(n_xa);
   int i, j, randLR;
   
@@ -67,7 +68,9 @@ SEXP file193b1b67af14( SEXP x, SEXP y, SEXP N, SEXP w, SEXP p){
     randLR = rand() % n_ya;
     // randonly initialize z
     z(randLR,i)=1;
+// init - save initialisation
     init(i)=randLR+1;
+// init
     limite(i)  = i;
     one(i) = 1;
   }
@@ -79,18 +82,20 @@ SEXP file193b1b67af14( SEXP x, SEXP y, SEXP N, SEXP w, SEXP p){
   int k, l,l2, pos;
   NumericMatrix prob_table(n_xa, Na);
   NumericMatrix class_table(n_xa, Na);
-  
+
+// loglike
   NumericVector likelihood(Na);
- // system("mkdir beta");
-  
-  // normalize input Likelihood to (0,1)
+// loglike  
+
+// once - normalize input Likelihood to (0,1)
   for(int m=0;m<n_xa;m++){
       NumericVector nV0(n_ya);
       nV0 = n(_, m);
       std::transform(nV0.begin(), nV0.end(), nV0.begin(), std::bind2nd(std::divides<double>(),std::accumulate(nV0.begin(), nV0.end(), 0.0)));
       nV(_,m )=nV0;
   }
-  
+// once
+
   int oldval;
   for(k=0; k<Na; k++){          // foreach sample iteration
   
@@ -101,9 +106,6 @@ SEXP file193b1b67af14( SEXP x, SEXP y, SEXP N, SEXP w, SEXP p){
       // trick, where the z.col came from	
       betaM = one - wa * z.col(l2);
       
-//      String file = "beta/beta_"+toString(k+1)+"_"+toString(l+1)+".txt";
-//      betaM.save(file, arma::raw_ascii);
-    
       // sum delta and normalize
       Prob = betaM;
       std::transform(Prob.begin(), Prob.end(), Prob.begin(), std::bind2nd(std::plus<double>(),1));
@@ -162,7 +164,7 @@ SEXP file193b1b67af14( SEXP x, SEXP y, SEXP N, SEXP w, SEXP p){
     } //end for l
     
   
-    // calculate Likelihood
+//loglike - calculate Posterior-Probability of each sample
     double log_sum=0.0;
     for(int m=0;m<n_xa;m++){
       
@@ -180,7 +182,7 @@ SEXP file193b1b67af14( SEXP x, SEXP y, SEXP N, SEXP w, SEXP p){
     }
     // save Likelihood
     likelihood(k)=log_sum;
-
+// loglike
 
 } // end for k
   

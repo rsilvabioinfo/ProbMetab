@@ -13,7 +13,7 @@
 #' @return A list of matrices with attribution indexes and probabilities.
 #'
 #' @export 
-#' 
+
  gibbs.samp <- function (x, y, N, w, p) 
 .Call("file193b1b67af14", x, y, N, w, p, PACKAGE = "ProbMetab")
 

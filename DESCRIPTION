@@ -12,23 +12,59 @@ License: GPL (>= 2)
 URL: http://labpib.fmrp.usp.br/methods/probmetab/
 LazyData: true
 ByteCompile: true
-Depends: R (>= 2.10), RcppArmadillo, Rcpp, CAMERA, GeneNet, graph,
-        RCytoscape, hwriter, RCurl, XML, multtest, rjson
-Suggests: mzmatch.R, bootstrap, leaps, mgcv
+Depends:
+    R (>= 2.10),
+    RcppArmadillo,
+    Rcpp,
+    CAMERA,
+    GeneNet,
+    graph,
+    RCytoscape,
+    hwriter,
+    RCurl,
+    XML,
+    multtest,
+    rjson,
+    Matrix
+Suggests:
+    mzmatch.R,
+    bootstrap,
+    leaps,
+    mgcv
 LinkingTo: RcppArmadillo, Rcpp
-Collate: 'RCreateDataFrame.R' 'combineMolIon.R' 'comp.results.R'
-        'create.reactionM.R' 'createXGMML.R' 'design.connection.R'
-        'export.class.table.R' 'export2cytoscape.R' 'formula2mass.R'
-        'get.Mzmatch.annot.R' 'get.annot.R'
-        'get.compounds.by.pathway.biocyc.R' 'get.kegg.pathways.R'
-        'get.name.R' 'get.ncbi.id.R' 'get.pathway.by.organism.biocyc.R'
-        'get.reactions.by.compound.biocyc.R' 'gibbs.samp.R'
-        'incorporate.isotopes.R' 'reac2cor.R' 'rt.predict.R'
-        'sbml2table.R' 'weightM.R' 'weightRT.R'
-        'get.pathway.by.compound.kegg.R'
-        'create.pathway.node.attributes.R'
-        'create.reaction.edge.attributes.R' 'createJSONToCytoscape.R'
-        'get.pathway.by.organism.kegg.R' 'openGraph.R'
-        'get.kgml.positions.kegg.R' 'get.formula.kegg.R'
-        'build.database.kegg.R'
+Collate:
+    'RCreateDataFrame.R'
+    'combineMolIon.R'
+    'comp.results.R'
+    'create.reactionM.R'
+    'createXGMML.R'
+    'design.connection.R'
+    'export.class.table.R'
+    'export2cytoscape.R'
+    'formula2mass.R'
+    'get.Mzmatch.annot.R'
+    'get.annot.R'
+    'get.compounds.by.pathway.biocyc.R'
+    'get.kegg.pathways.R'
+    'get.name.R'
+    'get.ncbi.id.R'
+    'get.pathway.by.organism.biocyc.R'
+    'get.reactions.by.compound.biocyc.R'
+    'gibbs.samp.R'
+    'incorporate.isotopes.R'
+    'reac2cor.R'
+    'rt.predict.R'
+    'sbml2table.R'
+    'weightM.R'
+    'weightRT.R'
+    'get.pathway.by.compound.kegg.R'
+    'create.pathway.node.attributes.R'
+    'create.reaction.edge.attributes.R'
+    'createJSONToCytoscape.R'
+    'get.pathway.by.organism.kegg.R'
+    'openGraph.R'
+    'get.kgml.positions.kegg.R'
+    'get.formula.kegg.R'
+    'build.database.kegg.R'
 Packaged: 2013-10-31 15:32:05 UTC; rsilva
+RoxygenNote: 5.0.1

@@ -17,7 +17,10 @@ build.database.kegg <- function(orgID=NULL) {
 	cpList <- cpList[-grep("Error", cpList)] 
 	cpnames <- do.call("rbind", cpList)
 	if(!is.null(orgID)) {
-		orgSpecific <- read.table(paste("http://rest.kegg.jp/link/", orgID, "/compound", sep=""))
+		#orgSpecific <- read.table(paste("http://rest.kegg.jp/link/", orgID, "/compound", sep=""))
+		orgSpecific <- read.table(paste0("http://rest.kegg.jp/link/", orgID, "/pathway"))
+		allpath <- read.table("http://rest.kegg.jp/link/pathway/cpd")
+		orgSpecific <- allpath[sub(".+(\\d{5}$)", "\\1",  allpath[,2]) %in% sub(".+(\\d{5}$)", "\\1",  orgSpecific[,1]),]
 		cpnames <- cpnames[which(cpnames[,1]%in%orgSpecific[,1]),] 
 		missing <- setdiff(unique(orgSpecific[,1]), cpnames[,1]) 
 	}
